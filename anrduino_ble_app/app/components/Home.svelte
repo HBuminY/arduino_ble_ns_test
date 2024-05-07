@@ -11,17 +11,21 @@
 </page>
 
 <script lang="ts">
-    let message: string = "Blank Svelte Native App"
+    let message = ["lel"];
+
+    import { Bluetooth } from '@nativescript-community/ble';
+    import {Dialogs} from '@nativescript/core'
+
+    function scanDevices(){
+        bluetooth.startScanning({
+            seconds: 4,
+            onDiscovered: function (peripheral) {
+                deviceDetected(peripheral)
+            }
+        }).then(function() {
+            Dialogs.alert("scanning complete");
+        }, function (err) {
+            Dialogs.alert("error while scanning: " + err);
+        });
+    }
 </script>
-
-<style>
-    .info .fas {
-        color: #3A53FF;
-    }
-
-    .info {
-        font-size: 20;
-        horizontal-align: center;
-        vertical-align: center;
-    }
-</style>
